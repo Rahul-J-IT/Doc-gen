@@ -3,7 +3,8 @@ const OD = require('../models/odModel');
 // Create OD
 exports.createOD = async (req, res) => {
   try {
-    const od = new OD({ ...req.body, studentId: req.user.id });
+    
+    const od = new OD({ ...req.body, studentId: req.user._id});
     const savedOD = await od.save();
     res.status(201).json(savedOD);
   } catch (err) {
@@ -14,7 +15,7 @@ exports.createOD = async (req, res) => {
 // Get My ODs (Student)
 exports.getMyODs = async (req, res) => {
   try {
-    const ods = await OD.find({ studentId: req.user.id });
+    const ods = await OD.find({ studentId: req.user._id });
     res.status(200).json(ods);
   } catch (err) {
     res.status(500).json({ error: 'Unable to fetch your ODs' });
@@ -24,7 +25,8 @@ exports.getMyODs = async (req, res) => {
 // Get Single OD (Student)
 exports.getSingleODUser = async (req, res) => {
   try {
-    const od = await OD.findOne({ _id: req.params.id, studentId: req.user.id });
+    
+    const od = await OD.findOne({ _id: req.params.id, studentId: req.user._id });
     if (!od) return res.status(404).json({ error: 'OD not found' });
     res.status(200).json(od);
   } catch (err) {
