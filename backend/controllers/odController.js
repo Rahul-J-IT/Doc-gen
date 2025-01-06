@@ -90,3 +90,7 @@ exports.deleteOD = async (req, res) => {
     res.status(500).json({ error: 'Unable to delete the OD' });
   }
 };
+
+exports.yourFunction = (req, res) => {
+    // Your function logic here
+};

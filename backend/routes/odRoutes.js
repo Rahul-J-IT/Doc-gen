@@ -1,23 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const { 
-  createOD, getMyODs, getSingleODUser, getAllODsAdmin, 
-  updateODUser, getSingleODAdmin, updateODAdmin, deleteOD 
-} = require('../controllers/odController');
-const { authenticate } = require('../middlewares/authenticate');
-const { authorize } = require('../middlewares/authenticate');
+const odController = require('../controllers/odController');
 
 // Student routes
-router.post('/od', authenticate, createOD);
-router.get('/myods', authenticate, getMyODs);
-router.get('/od/:id', authenticate, getSingleODUser);
-router.put('/od/:id', authenticate, updateODUser);
-router.delete('/od/:id', authenticate, deleteOD);
+router.post('/od', odController.createOD);
+router.get('/myods', odController.getMyODs);
+router.get('/od/:id', odController.getSingleODUser);
+router.put('/od/:id', odController.updateODUser);
+router.delete('/od/:id', odController.deleteOD);
 
 // Admin/OD in-charge routes
-router.get('/admin/ods', authenticate, authorize('admin'), getAllODsAdmin);
-router.get('/admin/od/:id', authenticate, authorize('admin'), getSingleODAdmin);
-router.put('/admin/od/:id', authenticate, authorize('admin'), updateODAdmin);
-router.delete('/admin/od/:id', authenticate, authorize('admin'), deleteOD);
+router.get('/admin/ods', odController.getAllODsAdmin);
+router.get('/admin/od/:id', odController.getSingleODAdmin);
+router.put('/admin/od/:id', odController.updateODAdmin);
+router.delete('/admin/od/:id', odController.deleteOD);
 
 module.exports = router;
