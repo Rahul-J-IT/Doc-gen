@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const odRoutes = require('./routes/odRoutes');
-const connectDB = require('./config/db');
+const connectDB = require('./config/database');
 require('dotenv').config();
 
 // Initialize the app
